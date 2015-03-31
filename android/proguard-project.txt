@@ -28,4 +28,4 @@
 -keep class flexjson.** { *; }
 -keep class com.otomod.ad.** {*;}
 -libraryjars libs/httpmime-4.1.2.jar
--libraryjars libs/o2omobi_sdk_v4.0.1.jar
+-libraryjars libs/o2omobi_sdk_v4.1.2.jar

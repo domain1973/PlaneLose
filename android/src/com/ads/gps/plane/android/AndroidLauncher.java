@@ -14,7 +14,7 @@ import com.otomod.ad.AdView;
 import com.otomod.ad.listener.O2OAdListener;
 
 public class AndroidLauncher extends AndroidApplication {
-    private static String APP_KEY = "462d7d5e9a6c11e4916ef8bc123c968c";
+    private static String APP_KEY = "63d351c2d09911e49082f8bc123d7e98";
     private PEventImpl pEvent;
 
     @Override
@@ -49,7 +49,7 @@ public class AndroidLauncher extends AndroidApplication {
         Settings.musicEnabled = sharedata.getBoolean("music", true);
         Settings.soundEnabled = sharedata.getBoolean("sound", true);
         Settings.unlockGateNum = sharedata.getInt("passNum", 0);
-        Settings.helpNum = sharedata.getInt("helpNum", 1);
+        Settings.helpNum = sharedata.getInt("helpNum", 3);//TODO
         Answer.gateStars.clear();
         String[] split = sharedata.getString("starNum", "0").split("[,]");
         for (String starNum : split) {

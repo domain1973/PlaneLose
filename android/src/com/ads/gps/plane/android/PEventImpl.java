@@ -51,7 +51,7 @@ public class PEventImpl extends PEvent {
 
     public PEventImpl(AndroidLauncher androidLauncher) {
         launcher = androidLauncher;
-        handler =  new Handler();
+        handler = new Handler();
         fillAd();
     }
 
@@ -147,18 +147,19 @@ public class PEventImpl extends PEvent {
         handler.post(new Runnable() {
             public void run() {
                 new AlertDialog.Builder(launcher).setTitle(Constant.SHARE_TITLE).setMessage(
-                        "版本: 1.0.1\n" +
-                        "爱迪工作室 \n" +
-                        "版权所有c 2015\n" +
-                        "客户邮箱\n" +
-                        "domainxu@foxmail.com\n" +
-                        "工作室网址\n" +
-                        "http://ads360.duapp.com/House")
+                        "版本: 1.0.0\n" +
+                                "爱迪工作室 \n" +
+                                "版权所有c 2015\n" +
+                                "客户邮箱\n" +
+                                "domainxu@foxmail.com\n" +
+                                "工作室网址\n" +
+                                "http://ads360.duapp.com/House"
+                )
                         .setNegativeButton("关闭", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                }).setIcon(R.drawable.xiaozi).create().show();
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        }).setIcon(R.drawable.xiaozi).create().show();
             }
         });
     }
@@ -191,18 +192,18 @@ public class PEventImpl extends PEvent {
     public void sos(final GameScreen gs) {
         handler.post(new Runnable() {
             public void run() {
-            new AlertDialog.Builder(launcher).setTitle(Constant.title).setMessage("您还有" + Settings.helpNum + "次机会,需要帮助吗?")
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Settings.helpNum = Settings.helpNum - 1;
-                            gs.useSos();
-                        }
-                    }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                }
-            }).setIcon(R.drawable.xiaozi).create().show();
+                new AlertDialog.Builder(launcher).setTitle(Constant.title).setMessage("您还有" + Settings.helpNum + "次机会,需要帮助吗?")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Settings.helpNum = Settings.helpNum - 1;
+                                gs.useSos();
+                            }
+                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                }).setIcon(R.drawable.xiaozi).create().show();
             }
         });
     }
@@ -260,13 +261,13 @@ public class PEventImpl extends PEvent {
                         .setPositiveButton("下载", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                    openProgressBar();
-                                    new Thread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            openFile(downLoadFile(series.getUrl()));
-                                        }
-                                    }).start();
+                                openProgressBar();
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        openFile(downLoadFile(series.getUrl()));
+                                    }
+                                }).start();
                             }
                         })
                         .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -305,7 +306,7 @@ public class PEventImpl extends PEvent {
                 // 当前网络不可用
                 return false;
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return true;
@@ -354,7 +355,7 @@ public class PEventImpl extends PEvent {
                 fos.flush();
                 fos.close();
             }
-        } catch(Throwable t) {
+        } catch (Throwable t) {
             t.printStackTrace();
             gameLogoImage = null;
         }
@@ -431,11 +432,11 @@ public class PEventImpl extends PEvent {
             BCSCredentials credentials = new BCSCredentials(Constant.accessKey, Constant.secretKey);
             BaiduBCS baiduBCS = new BaiduBCS(credentials, Constant.host);
             baiduBCS.setDefaultEncoding("UTF-8"); // Default UTF-8
-            getObjectWithDestFile(baiduBCS, Constant.adAtlasStr, Constant.adAtlas);
-            getObjectWithDestFile(baiduBCS, Constant.urlStr, Constant.url);
+            getObjectWithDestFile(baiduBCS, Constant.adAtlasStr, Constant.adAtlas);//系列图片信息
+            getObjectWithDestFile(baiduBCS, Constant.urlStr, Constant.url);//下载地址
             getObjectWithDestFile(baiduBCS, Constant.yybStr, Constant.yyb);
             getObjectWithDestFile(baiduBCS, Constant.adsStr, Constant.ads);
-            getObjectWithDestFile(baiduBCS, "/ad.png" , new File(Constant.path + "ad.png"));
+            getObjectWithDestFile(baiduBCS, Constant.adPngStr, Constant.adPng);
 
             FileInputStream fis = new FileInputStream(Constant.yyb);
             byte[] bts = new byte[128];
@@ -461,4 +462,39 @@ public class PEventImpl extends PEvent {
         return ads;
     }
 
+    @Override
+    public void help(final int level) {
+        handler.post(new Runnable() {
+            public void run() {
+                String readme = "";
+                switch (level) {
+                    case 0:
+                        readme = "初级: 自由飞翔\n" +
+                                "1 飞机的摆放位置及方向都已经预先给出. \n" +
+                                "2 正确地摆放拼图,让拼图上的飞机能覆盖白色飞机图案上.";
+                        break;
+                    case 1:
+                        readme = "中级: 雷达寻踪\n" +
+                                "1 飞机的摆放位置及飞行路线都已预先给出,但不包含飞机的摆放方向. \n" +
+                                "2 将飞机分别放在圆圈标明的6个区点上.飞机的摆放方向必须顺着航线方向(虚线必须穿过机头和机尾).";
+                        break;
+                    case 2:
+                        readme = "高级: 航线探秘\n" +
+                                "1 飞机的航线及摆放方向都已预先给出,但不包含飞机的摆放位置. \n" +
+                                "2 将拼图上的飞机对照箭头的方向放置在航线上.飞机的头尾方向必须与航线一致(从机头到机尾把飞机路线完整覆盖住).";
+                        break;
+                    case 3:
+                        readme = "专家: 跑道启航\n" +
+                                "1 仅仅提供跑道部分. \n" +
+                                "2 将飞机放在直线跑道上(在同一条跑道上的飞机的头尾摆放方向必须一致).";
+                }
+                new AlertDialog.Builder(launcher).setTitle(Constant.SHARE_TITLE).setMessage(readme)
+                        .setNegativeButton("关闭", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        }).setIcon(R.drawable.xiaozi).create().show();
+            }
+        });
+    }
 }

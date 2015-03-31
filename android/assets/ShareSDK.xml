@@ -92,21 +92,21 @@
     <Wechat
         Id="4"
         SortId="4"
-        AppId="wxbd332935ddb35186"
+        AppId="wx6a83e1627df9ae32"
         BypassApproval="false"
         Enable="true" />
     
     <WechatMoments
         Id="5"
         SortId="5"
-        AppId="wxbd332935ddb35186"
+        AppId="wx6a83e1627df9ae32"
         BypassApproval="false"
         Enable="true" />
         
 	<WechatFavorite
         Id="6"
         SortId="6"
-        AppId="wxbd332935ddb35186"
+        AppId="wx6a83e1627df9ae32"
         Enable="true" />
     
 	<!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->

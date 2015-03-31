@@ -13,7 +13,7 @@ pad.advance.y=0
 glyph.native.rendering=false
 glyph.page.width=512
 glyph.page.height=512
-glyph.text=将网移到羊圈中,点击羊圈中的网可变方向.
+glyph.text=把下面的6个拼图片移到上面的图中,移动后点击拼图可变方向. 注意拼图是不能重叠的.
 
 effect.class=com.badlogic.gdx.tools.hiero.unicodefont.effects.ColorEffect
 effect.Color=ffffff

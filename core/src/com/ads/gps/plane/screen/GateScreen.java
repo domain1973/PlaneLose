@@ -28,7 +28,7 @@ public class GateScreen extends OtherScreen {
         levelScreen = ls;
         level = ls.getLevel();
         gameScreen = new GameScreen(this);
-        gateImageBtns = new GateImageBtn[Answer.GATE_MAX];
+        gateImageBtns = new GateImageBtn[Assets.LEVEL_GATE_MAX];
     }
 
     @Override
@@ -63,9 +63,9 @@ public class GateScreen extends OtherScreen {
     @Override
     protected String getStarNumInfo() {
         int starNum = 0;
-        int fromIndex = level * Answer.GATE_MAX;
+        int fromIndex = level * Assets.LEVEL_GATE_MAX;
         int s = Answer.gateStars.size();
-        int toIndex = fromIndex + Answer.GATE_MAX;
+        int toIndex = fromIndex + Assets.LEVEL_GATE_MAX;
         if (s < toIndex) {
             toIndex = s;
         }
@@ -85,8 +85,8 @@ public class GateScreen extends OtherScreen {
             }
             level = lv;
             float gateBtnSize = Assets.WIDTH / 5;
-            for (int i = 0; i < Answer.GATE_MAX; i++) {
-                final int gateNum = lv * Answer.GATE_MAX + i;
+            for (int i = 0; i < Assets.LEVEL_GATE_MAX; i++) {
+                final int gateNum = lv * Assets.LEVEL_GATE_MAX + i;
                 TextureRegion gateTRegion = null;
                 if (Settings.unlockGateNum >= gateNum || gateNum == 0) {
                     int num = Answer.gateStars.get(gateNum);

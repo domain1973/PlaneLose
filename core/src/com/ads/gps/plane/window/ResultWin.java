@@ -46,7 +46,7 @@ public class ResultWin extends BaseWin {
 
     public ResultWin(GameScreen gs, int num) {
         super(Answer.TITLES[num], new WindowStyle(gs.getGameFont(), Color.WHITE, new TextureRegionDrawable(
-                Assets.resultBg)));
+                Assets.winBg)));
         starNum = num;
         gameScreen = gs;
         create();
@@ -99,13 +99,13 @@ public class ResultWin extends BaseWin {
                     Assets.playSound(Assets.btnSound);
                     if (starNum > 0) {//时间已到,回关卡时,不能更新状态
                         int nextGateNum = updateGateNum();
-                        gameScreen.getGateScreen().buildGateImage((nextGateNum - 1) / Answer.GATE_MAX);
+                        gameScreen.getGateScreen().buildGateImage((nextGateNum - 1) / Assets.LEVEL_GATE_MAX);
                     } else {
-                        gameScreen.getGateScreen().buildGateImage((Settings.unlockGateNum - 1) / Answer.GATE_MAX);
+                        gameScreen.getGateScreen().buildGateImage((Settings.unlockGateNum - 1) / Assets.LEVEL_GATE_MAX);
                     }
                     layerBg.remove();
                     ResultWin.this.remove();
-                    gameScreen.refreshGame();
+                    gameScreen.return2init();
                     gameScreen.getAppGame().setScreen(gameScreen.getGateScreen());
                 }
                 super.touchUp(event, x, y, pointer, button);
@@ -128,7 +128,7 @@ public class ResultWin extends BaseWin {
                         Answer.gateStars.set(t, 0);
                     }
                     layerBg.remove();
-                    gameScreen.refreshGame();
+                    gameScreen.return2init();
                     ResultWin.this.remove();
                 }
                 super.touchUp(event, x, y, pointer, button);
@@ -152,7 +152,7 @@ public class ResultWin extends BaseWin {
                     ResultWin.this.remove();
                     gameScreen.return2init();
                     if (Answer.isLasterSmallGate(nextGateNum)) {
-                        int lv = nextGateNum / Answer.GATE_MAX;
+                        int lv = nextGateNum / Assets.LEVEL_GATE_MAX;
                         AppGame puzzle = gameScreen.getAppGame();
                         LevelScreen levelScreen = puzzle.getLevelScreen();
                         levelScreen.setLevel(lv);
@@ -167,14 +167,16 @@ public class ResultWin extends BaseWin {
     private int updateGateNum() {
         ((AreaController) group.findActor(IController.AREA_CTRL)).handler();
         int nextGateNum = gameScreen.getGateNum() + 1;
-        gameScreen.handleNewGate(nextGateNum);
-        if (nextGateNum > Settings.unlockGateNum) {
-            Settings.unlockGateNum = nextGateNum;
+        if (!Answer.isAllPass(nextGateNum)) {
+            gameScreen.handleNewGate(nextGateNum);
+            if (nextGateNum > Settings.unlockGateNum) {
+                Settings.unlockGateNum = nextGateNum;
+            }
+            if (Answer.gateStars.size() <= nextGateNum) {
+                Answer.gateStars.add(0);
+            }
+            gameScreen.getAppGame().getPEvent().save();
         }
-        if (Answer.gateStars.size() <= nextGateNum) {
-            Answer.gateStars.add(0);
-        }
-        gameScreen.getAppGame().getPEvent().save();
         return nextGateNum;
     }
 

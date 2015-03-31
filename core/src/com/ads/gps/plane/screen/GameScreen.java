@@ -3,6 +3,7 @@ package com.ads.gps.plane.screen;
 import com.ads.gps.plane.Answer;
 import com.ads.gps.plane.Assets;
 import com.ads.gps.plane.Settings;
+import com.ads.gps.plane.actors.PlaneImage;
 import com.ads.gps.plane.controller.AreaController;
 import com.ads.gps.plane.controller.IController;
 import com.ads.gps.plane.controller.PlaneController;
@@ -35,7 +36,6 @@ import java.util.concurrent.TimeUnit;
  * Created by Administrator on 2014/6/24.
  */
 public class GameScreen extends BaseScreen {
-    private static final String GAMEKEY = "羊圈";//不同主题需更改
     private ScheduledExecutorService executorGateEnd;
     private ScheduledExecutorService executStarCount;
     private ScheduledExecutorService executTime;
@@ -51,7 +51,6 @@ public class GameScreen extends BaseScreen {
     private String timeStr;
     private Label labTime;
     private Label labCount;
-    private Label labGateNum;
 
     private boolean openResultWin;
     private boolean isPass;
@@ -62,19 +61,22 @@ public class GameScreen extends BaseScreen {
     private int gateNum;
     private int seconds;
     private int starNum;
-    private int areaId = 0;
+    private int planeId = 0;
     private Image[] flashImages;
     private Label.LabelStyle yellowStyle;
     private Label.LabelStyle redStyle;
     private Label.LabelStyle quizStyle;
+    private Label labGateNum;
 
     public GameScreen(GateScreen gs) {
         super(gs.getAppGame());
         gateNum = -1;
         gateScreen = gs;
         isUsingHelp = true;
-        yellowStyle = new Label.LabelStyle(getOtherFont(), Color.YELLOW);
-        redStyle = new Label.LabelStyle(getOtherFont(), Color.RED);
+        BitmapFont font = getOtherFont();
+        font.setScale(Assets.WIDTH / 480 * (float)0.8);
+        yellowStyle = new Label.LabelStyle(font, Color.YELLOW);
+        redStyle = new Label.LabelStyle(font, Color.RED);
         quizStyle = new Label.LabelStyle(getQuizFont(), Color.RED);
 
         executorGateEnd = Executors.newSingleThreadScheduledExecutor();
@@ -100,12 +102,12 @@ public class GameScreen extends BaseScreen {
             initEffect();
             createTimer();
             removeLayerBg();
-            setShow(true);
             areaCtrl.setGateNum(gateNum);
             areaCtrl.handler();
             Image netbg =  new Image(Assets.netBg);
             netbg.setBounds(0, Assets.AREA_Y, Assets.WIDTH, Assets.WIDTH);
             addActor(netbg);
+            setShow(true);
         }
         multiplexer = new InputMultiplexer(); // 多输入接收器
         planeDetector = new PlaneDetector(getStage(), new PlaneListener(getStage(), GameScreen.this));
@@ -116,9 +118,9 @@ public class GameScreen extends BaseScreen {
 
     private void createTopBar() {
         super.createBtns();
-        final ImageButton help = new ImageButton(new TextureRegionDrawable(Assets.light));
-        help.setBounds(Assets.WIDTH - 3 * Assets.TOPBAR_HEIGHT, getY_bar(), Assets.TOPBAR_HEIGHT, Assets.TOPBAR_HEIGHT);
-        help.addListener(new InputListener() {
+        final ImageButton sosBtn = new ImageButton(new TextureRegionDrawable(Assets.light));
+        sosBtn.setBounds(Assets.WIDTH - 4 * Assets.TOPBAR_HEIGHT, getY_bar(), Assets.TOPBAR_HEIGHT, Assets.TOPBAR_HEIGHT);
+        sosBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y,
                                      int pointer, int button) {
@@ -127,7 +129,7 @@ public class GameScreen extends BaseScreen {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                Rectangle bound = new Rectangle(0, 0, help.getWidth(), help.getHeight());
+                Rectangle bound = new Rectangle(0, 0, sosBtn.getWidth(), sosBtn.getHeight());
                 if (bound.contains(x, y)) {
                     Assets.playSound(Assets.btnSound);
                     if (Settings.helpNum > 0) {
@@ -139,10 +141,10 @@ public class GameScreen extends BaseScreen {
                 super.touchUp(event, x, y, pointer, button);
             }
         });
-        addActor(help);
+        addActor(sosBtn);
 
         final ImageButton share = new ImageButton(new TextureRegionDrawable(Assets.barShare));
-        share.setBounds(Assets.WIDTH - 2 * Assets.TOPBAR_HEIGHT, getY_bar(), Assets.TOPBAR_HEIGHT, Assets.TOPBAR_HEIGHT);
+        share.setBounds(Assets.WIDTH - 3 * Assets.TOPBAR_HEIGHT, getY_bar(), Assets.TOPBAR_HEIGHT, Assets.TOPBAR_HEIGHT);
         share.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y,
@@ -162,9 +164,9 @@ public class GameScreen extends BaseScreen {
         });
         addActor(share);
 
-        final ImageButton suspend = new ImageButton(new TextureRegionDrawable(Assets.suspend));
-        suspend.setBounds(Assets.WIDTH - Assets.TOPBAR_HEIGHT, getY_bar(), Assets.TOPBAR_HEIGHT, Assets.TOPBAR_HEIGHT);
-        suspend.addListener(new InputListener() {
+        final ImageButton resetBtn = new ImageButton(new TextureRegionDrawable(Assets.reset));
+        resetBtn.setBounds(Assets.WIDTH - 2 * Assets.TOPBAR_HEIGHT, getY_bar(), Assets.TOPBAR_HEIGHT, Assets.TOPBAR_HEIGHT);
+        resetBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y,
                                      int pointer, int button) {
@@ -173,7 +175,29 @@ public class GameScreen extends BaseScreen {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                Rectangle bound = new Rectangle(0, 0, suspend.getWidth(), suspend.getHeight());
+                Rectangle bound = new Rectangle(0, 0, resetBtn.getWidth(), resetBtn.getHeight());
+                if (bound.contains(x, y)) {
+                    Assets.playSound(Assets.btnSound);
+                    areaCtrl.clearPlane();
+                    planeCtrl.handler();
+                }
+                super.touchUp(event, x, y, pointer, button);
+            }
+        });
+        addActor(resetBtn);
+
+        final ImageButton suspendBtn = new ImageButton(new TextureRegionDrawable(Assets.suspend));
+        suspendBtn.setBounds(Assets.WIDTH - Assets.TOPBAR_HEIGHT, getY_bar(), Assets.TOPBAR_HEIGHT, Assets.TOPBAR_HEIGHT);
+        suspendBtn.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y,
+                                     int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                Rectangle bound = new Rectangle(0, 0, suspendBtn.getWidth(), suspendBtn.getHeight());
                 if (bound.contains(x, y)) {
                     Assets.playSound(Assets.btnSound);
                     suspendTimer();
@@ -183,7 +207,28 @@ public class GameScreen extends BaseScreen {
                 super.touchUp(event, x, y, pointer, button);
             }
         });
-        addActor(suspend);
+        addActor(suspendBtn);
+
+        final ImageButton helpBtn = new ImageButton(new TextureRegionDrawable(Assets.help));
+        helpBtn.setBounds(Assets.WIDTH - Assets.TOPBAR_HEIGHT, Assets.AREA_Y - Assets.TOPBAR_HEIGHT, Assets.TOPBAR_HEIGHT, Assets.TOPBAR_HEIGHT);
+        helpBtn.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y,
+                                     int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                Rectangle bound = new Rectangle(0, 0, helpBtn.getWidth(), helpBtn.getHeight());
+                if (bound.contains(x, y)) {
+                    Assets.playSound(Assets.btnSound);
+                    getAppGame().getPEvent().help(level);
+                }
+                super.touchUp(event, x, y, pointer, button);
+            }
+        });
+        addActor(helpBtn);
 
         returnBtn.addListener(new InputListener() {
             @Override
@@ -214,16 +259,15 @@ public class GameScreen extends BaseScreen {
         addActor(labTime);
         float w = bounds.width;
         labCount = new Label("", redStyle);
-        labCount.setPosition(Assets.WIDTH - 3 * Assets.TOPBAR_HEIGHT - w / 3, Assets.HEIGHT - Assets.TOPBAR_HEIGHT / 2);
+        labCount.setPosition(Assets.WIDTH - 4 * Assets.TOPBAR_HEIGHT - w / 3, Assets.HEIGHT - Assets.TOPBAR_HEIGHT / 2);
         addActor(labCount);
 
-        String s = "将网移到" + GAMEKEY + "中,点击" + GAMEKEY + "中的网可变方向.";
+        String s = "把下面的6个拼图片移到上面的图中,移动后点击\n拼图可变方向. 注意拼图是不能重叠的.";
         Label c = new Label(s, quizStyle);
-        c.setPosition(0, 2 * Assets.PLANE_SIZE);
+        c.setPosition(0, Assets.PLANE_SIZE + Assets.PLANE_SIZE/2);
         addActor(c);
-
         labGateNum = new Label("", yellowStyle);
-        labGateNum.setPosition(0, Assets.AREA_Y + bounds.height);
+        labGateNum.setPosition(0, Assets.AREA_Y + bounds.height - 5);
         addActor(labGateNum);
     }
 
@@ -254,18 +298,29 @@ public class GameScreen extends BaseScreen {
         if (isUsedHelp) {
             if (isUsingHelp) {
                 changeStar();
-                areaId = 0;
+                planeId = 0;
                 isUsingHelp = false;
             }
-            if (areaId < 1) {
+            if (planeId < 4) {
+                int temp = planeId;//防止定时器修改值不同步
+                String[] c = Answer.CHALLENGES.get(gateNum)[temp].split(",");
+                PlaneImage plane = (PlaneImage)planeCtrl.getChildren().get(temp);
+                plane.setBounds(Integer.parseInt(c[1]) * Assets.PLANE_SIZE,
+                         Assets.HEIGHT - Assets.TOPBAR_HEIGHT - (4 - Integer.parseInt(c[2])) * Assets.PLANE_SIZE,
+                         Assets.PLANE_BIG_SIZE, Assets.PLANE_BIG_SIZE);
+                plane.setOrientation(Integer.parseInt(c[0]));
+                areaCtrl.addPlane(plane);
                 getBatch().begin();
-                effect.setPosition(Assets.ANSWER_X, 0);
+                effect.setPosition(plane.getX() + Assets.PLANE_BIG_SIZE / 2, plane.getY() + Assets.PLANE_BIG_SIZE / 2);
                 effect.draw(getBatch(), Gdx.graphics.getDeltaTime());
                 getBatch().end();
             } else {
                 isUsedHelp = false;
-                areaId = 0;
+                resumeTimer();
+                planeId = 0;
                 executStarCount.shutdown();
+                multiplexer.addProcessor(planeDetector); // 添加手势识别
+                multiplexer.addProcessor(getStage());
             }
         }
     }
@@ -274,8 +329,8 @@ public class GameScreen extends BaseScreen {
         executStarCount = Executors.newSingleThreadScheduledExecutor();
         executStarCount.scheduleAtFixedRate(new Runnable() {
             public void run() {
-                areaId++;
-                if (areaId <= 1) {
+                planeId++;
+                if (planeId < 4) {
                     Assets.soundStar();
                 }
             }
@@ -418,10 +473,11 @@ public class GameScreen extends BaseScreen {
             executTime.shutdown();
         }
         createTimer();
+        reset();
     }
 
-    public void refreshGame() {
-        return2init();
+    private void reset() {
+        stopFlash();
         areaCtrl.clearPlane();
         planeCtrl.handler();
     }
@@ -429,19 +485,22 @@ public class GameScreen extends BaseScreen {
     public void useSos() {
         isUsingHelp = true;
         isUsedHelp = true;
+        multiplexer.removeProcessor(planeDetector);
+        multiplexer.removeProcessor(getStage());
+        reset();
     }
 
     public void handleNewGate(int num) {
+        level = num / Assets.LEVEL_GATE_MAX;
         if (isShow()) {
             if (num != gateNum) {
-                refreshGame();
+                return2init();
                 areaCtrl.setGateNum(num);
                 areaCtrl.handler();
             } else {
                 resumeTimer();
             }
         }
-        level = num / Answer.LEVEL_GATE_MAX;
         gateNum = num;
     }
 

@@ -53,16 +53,14 @@ public class LevelListener extends GestureDetector.GestureAdapter {
     public boolean tap(float x, float y, int count, int button) {
         stage.getCamera().unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0)); // 坐标转化
         int level = (int) Math.abs(position / Assets.WIDTH);
-        int tLevel = Settings.unlockGateNum / Answer.LEVEL_GATE_MAX;
+        int tLevel = Settings.unlockGateNum / Assets.LEVEL_GATE_MAX;
         float v = Assets.WIDTH - 2 * Assets.LEVEL_IMAGE_OFF_SIZE;
         Rectangle bounds = new Rectangle(Assets.LEVEL_IMAGE_OFF_SIZE, (Assets.HEIGHT - Assets.WIDTH) / 2 + Assets.LEVEL_IMAGE_OFF_SIZE, v, v);
-       if (level == Assets.LEVEL_ADS - 1) {
+        if (level == Assets.LEVEL_ADS - 1) {
             showOtherGame(bounds, "帮动物回家");
-        } else if (level == Assets.LEVEL_ADS - 2) {
-            showOtherGame(bounds, "迪士尼迷宫");
         } else if (level <= tLevel) {
             if (bounds.contains(touchPoint.x, touchPoint.y)) {
-                Assets.soundBtn();
+                Assets.playSound(Assets.btnSound);
                 gateScreen.buildGateImage(level);
                 puzzle.setScreen(gateScreen);
             }
@@ -72,7 +70,7 @@ public class LevelListener extends GestureDetector.GestureAdapter {
 
     private void showOtherGame(Rectangle bounds, String text) {
         if (bounds.contains(touchPoint.x, touchPoint.y)) {
-            Assets.soundBtn();
+            Assets.playSound(Assets.btnSound);
             Series series = Assets.getGameInfo(text);
             if (series == null) {
                 gateScreen.getAppGame().getPEvent().netSlowInfo();

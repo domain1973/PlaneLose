@@ -4,7 +4,6 @@ import com.ads.gps.plane.AppGame;
 import com.ads.gps.plane.Assets;
 import com.ads.gps.plane.Settings;
 import com.ads.gps.plane.screen.GameScreen;
-import com.ads.gps.plane.screen.HelpScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
@@ -63,8 +62,8 @@ public class SupsendWin extends BaseWin {
         sound.setBounds(x * 2, y2, btnSize, btnSize);
         noSound = new Image(Assets.forbid);
         noSound.setBounds(sound.getX(), sound.getY(), btnSize, btnSize);
-        final ImageButton help = new ImageButton(new TextureRegionDrawable(Assets.help), new TextureRegionDrawable(Assets.help));
-        help.setBounds(x * 3, y2, btnSize, btnSize);
+        final ImageButton about = new ImageButton(new TextureRegionDrawable(Assets.about), new TextureRegionDrawable(Assets.about));
+        about.setBounds(x * 3, y2, btnSize, btnSize);
         Gdx.input.setInputProcessor(gameScreen.getStage());
 
         share.addListener(new InputListener() {
@@ -158,7 +157,7 @@ public class SupsendWin extends BaseWin {
                 super.touchUp(event, x, y, pointer, button);
             }
         });
-        help.addListener(new InputListener() {
+        about.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y,
                                      int pointer, int button) {
@@ -167,12 +166,10 @@ public class SupsendWin extends BaseWin {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                Rectangle bound = new Rectangle(0, 0, help.getWidth(), help.getHeight());
+                Rectangle bound = new Rectangle(0, 0, about.getWidth(), about.getHeight());
                 if (bound.contains(x, y)) {
                     Assets.playSound(Assets.btnSound);
-                    HelpScreen helpScreen = puzzle.getMainScreen().getHelpScreen();
-                    helpScreen.setBaseScreen(gameScreen);
-                    puzzle.setScreen(helpScreen);
+                    puzzle.getPEvent().about();
                 }
                 super.touchUp(event, x, y, pointer, button);
             }
@@ -225,7 +222,7 @@ public class SupsendWin extends BaseWin {
         if (!Settings.soundEnabled) {
             addActor(noSound);
         }
-        addActor(help);
+        addActor(about);
         addActor(gate);
         addActor(share);
         addActor(continues);

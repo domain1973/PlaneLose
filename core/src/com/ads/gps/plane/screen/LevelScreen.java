@@ -70,7 +70,7 @@ public class LevelScreen extends OtherScreen {
     }
 
     private void lock() {
-        int tLevel = Settings.unlockGateNum / Answer.LEVEL_GATE_MAX;
+        int tLevel = Settings.unlockGateNum / Assets.LEVEL_GATE_MAX;
         if (level > tLevel && level < Assets.LEVEL_MAX) {
             isAddLock = true;
         } else {
@@ -186,6 +186,9 @@ public class LevelScreen extends OtherScreen {
                     }
                 } else if (level == Assets.LEVEL_ADS - 1) {
                     rightBtn.remove();
+                    if (leftBtn.getStage() == null) {
+                        addActor(leftBtn);
+                    }
                 } else {
                     if (rightBtn.getStage() == null) {
                         addActor(rightBtn);

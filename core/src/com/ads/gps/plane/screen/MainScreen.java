@@ -20,7 +20,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 public class MainScreen extends BaseScreen {
     private AppGame appGame;
     private LevelScreen levelScreen;
-    private HelpScreen helpScreen;
     private boolean touchBack = true;
     private Image noMusic;
     private Image noSound;
@@ -29,19 +28,14 @@ public class MainScreen extends BaseScreen {
         super(game);
         appGame = game;
         levelScreen = new LevelScreen(game);
-        helpScreen = new HelpScreen(game, this);
     }
 
     @Override
     public void show() {
         if (!isShow()) {
             super.show();
-            Image theme = new Image(Assets.theme);
-            float themeSize = Assets.WIDTH * 3 / 4;
-            theme.setBounds((Assets.WIDTH - themeSize) / 2, Assets.HEIGHT / 2, themeSize, themeSize);
             Image startBg = new Image(Assets.startBg);
             startBg.setBounds(0, 0, Assets.WIDTH, Assets.HEIGHT);
-
             float playSize = Assets.WIDTH / 3;
             float spaceSize = Assets.WIDTH / 12;
             float btnPlayX = (Assets.WIDTH - playSize) / 2;
@@ -49,12 +43,12 @@ public class MainScreen extends BaseScreen {
             float otherSize = spaceSize * 2;
             float btnPlayY = Assets.HEIGHT / 3;
             final Image playBtn = new Image(new TextureRegionDrawable(Assets.playBtn));
-            playBtn.addAction(Actions.repeat(2000, Actions.rotateBy(360, 3f)));
+            //playBtn.addAction(Actions.repeat(2000, Actions.rotateBy(360, 3f)));
             playBtn.setBounds(btnPlayX, btnPlayY, playSize, playSize);
             playBtn.setOrigin(playBtn.getWidth() / 2, playBtn.getHeight() / 2);
-            final ImageButton helpBtn = new ImageButton(new TextureRegionDrawable(Assets.help), new TextureRegionDrawable(Assets.help));
+            final ImageButton aboutBtn = new ImageButton(new TextureRegionDrawable(Assets.about), new TextureRegionDrawable(Assets.about));
             float y = btnPlayY - 1.5f * otherSize;
-            helpBtn.setBounds(otherX*2, y, otherSize, otherSize);
+            aboutBtn.setBounds(otherX * 2, y, otherSize, otherSize);
 
             final ImageButton music = new ImageButton(new TextureRegionDrawable(Assets.music), new TextureRegionDrawable(Assets.music));
             music.setBounds(5 * otherX, y, otherSize, otherSize);
@@ -64,18 +58,19 @@ public class MainScreen extends BaseScreen {
             sound.setBounds(8 * otherX, y, otherSize, otherSize);
             noSound = new Image(Assets.forbid);
             noSound.setBounds(sound.getX(), sound.getY(), otherSize, otherSize);
-            helpBtn.addListener(new InputListener() {
+            aboutBtn.addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y,
                                          int pointer, int button) {
                     return true;
                 }
+
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                     Rectangle bound = new Rectangle(0, 0, music.getWidth(), music.getHeight());
                     if (bound.contains(x, y)) {
                         Assets.playSound(Assets.btnSound);
-                        appGame.setScreen(helpScreen);
+                        appGame.getPEvent().about();
                     }
                     super.touchUp(event, x, y, pointer, button);
                 }
@@ -169,9 +164,8 @@ public class MainScreen extends BaseScreen {
             });
 
             addActor(startBg);
-            addActor(theme);
             addActor(playBtn);
-            addActor(helpBtn);
+            addActor(aboutBtn);
             addActor(music);
             addActor(sound);
             removeLayerBg();
@@ -208,10 +202,6 @@ public class MainScreen extends BaseScreen {
             }
         }
         super.render(delta);
-    }
-
-    public HelpScreen getHelpScreen() {
-        return helpScreen;
     }
 
     public LevelScreen getLevelScreen() {

@@ -28,7 +28,7 @@ public class PlaneListener extends GestureDetector.GestureAdapter {
     private Vector3 touchPoint;
     private AreaController areaCtrl;
     private PlaneController planeCtrl;
-    private SnapshotArray<Actor> nets;
+    private SnapshotArray<Actor> planeImages;
     private Vector2 rawVector;
     private Vector2 lasterVector2;
     private PlaneImage downPlaneImage;
@@ -40,7 +40,7 @@ public class PlaneListener extends GestureDetector.GestureAdapter {
         rawVector = new Vector2();
         areaCtrl = (AreaController) stage.getRoot().findActor(IController.AREA_CTRL);
         planeCtrl = (PlaneController) stage.getRoot().findActor(IController.PIECE_CTRL);
-        nets = planeCtrl.getChildren();
+        planeImages = planeCtrl.getChildren();
     }
 
     @Override
@@ -55,7 +55,7 @@ public class PlaneListener extends GestureDetector.GestureAdapter {
             }
             if (downPlaneImage == null) {
                 for (int i = 0; i < 6; i++) {
-                    planeImage = (PlaneImage) nets.get(i);
+                    planeImage = (PlaneImage) planeImages.get(i);
                     Rectangle bounds = new Rectangle(planeImage.getX(), planeImage.getY(), planeImage.getWidth(), planeImage.getHeight());
                     if (bounds.contains(touchPoint.x, touchPoint.y)) {
                         downPlaneImage = planeImage;
@@ -74,11 +74,29 @@ public class PlaneListener extends GestureDetector.GestureAdapter {
             PlaneImage planeImage = areaCtrl.getPlane(touchPoint);
             if (planeImage != null) {
                 if (planeImage.getId() == 4 || planeImage.getId() == 5) {
-                    if ((Y1 == planeImage.getY() && planeImage.getOrientation() == 0) || (Y2 == planeImage.getY() && planeImage.getOrientation() == 2)) {
-                        return super.tap(x, y, count, button);
+                    if (Y1 - 4 * Assets.PLANE_SIZE == planeImage.getY() && planeImage.getOrientation() == 2) {
+                        planeImage.changeOrientation();//快速点击改变块方位
+                        planeImage.setBounds(planeImage.getX(), Y1 - 3*Assets.PLANE_SIZE, Assets.PLANE_BIG_SIZE, Assets.PLANE_BIG_SIZE);
+                        areaCtrl.handle(planeImage);
+                        return super.tap(x,y,count,button);
                     }
-                    if ((-Assets.PLANE_SIZE == planeImage.getX() && planeImage.getOrientation() == 1) || (3*Assets.PLANE_SIZE == planeImage.getX() && planeImage.getOrientation() == 3)) {
-                        return super.tap(x, y, count, button);
+                    if ((Y1 == planeImage.getY() && planeImage.getOrientation() == 0)) {
+                        planeImage.changeOrientation();//快速点击改变块方位
+                        planeImage.setBounds(planeImage.getX(), Y1 - Assets.PLANE_SIZE, Assets.PLANE_BIG_SIZE, Assets.PLANE_BIG_SIZE);
+                        areaCtrl.handle(planeImage);
+                        return super.tap(x,y,count,button);
+                    }
+                    if (-Assets.PLANE_SIZE == planeImage.getX() && planeImage.getOrientation() == 1) {
+                        planeImage.changeOrientation();//快速点击改变块方位
+                        planeImage.setBounds(0, planeImage.getY(), Assets.PLANE_BIG_SIZE, Assets.PLANE_BIG_SIZE);
+                        areaCtrl.handle(planeImage);
+                        return super.tap(x,y,count,button);
+                    }
+                    if (3*Assets.PLANE_SIZE == planeImage.getX() && planeImage.getOrientation() == 3) {
+                        planeImage.changeOrientation();//快速点击改变块方位
+                        planeImage.setBounds(2*Assets.PLANE_SIZE, planeImage.getY(), Assets.PLANE_BIG_SIZE, Assets.PLANE_BIG_SIZE);
+                        areaCtrl.handle(planeImage);
+                        return super.tap(x,y,count,button);
                     }
                 }
                 planeImage.changeOrientation();//快速点击改变块方位
@@ -86,7 +104,7 @@ public class PlaneListener extends GestureDetector.GestureAdapter {
                 Assets.soundBtn();
             }
         }
-        return super.tap(x, y, count, button);
+        return super.tap(x,y,count,button);
     }
 
     @Override
@@ -134,6 +152,15 @@ public class PlaneListener extends GestureDetector.GestureAdapter {
         if (planeImage.getId() == 4 || planeImage.getId() == 5) {
             int y = getY(planeImage.getY(), planeImage.getWidth());
             float y1 = Assets.HEIGHT - y - Assets.PLANE_BIG_SIZE;
+            if ((y == Assets.PLANE_SIZE * 3 + Assets.TOPBAR_HEIGHT || y == Assets.PLANE_SIZE  + Assets.TOPBAR_HEIGHT) && (planeImage.getOrientation() == 3)) {
+                return null;
+            }
+            if (planeImage.getX() < 0 && (planeImage.getOrientation() == 0 || planeImage.getOrientation() == 2)) {
+                return null;
+            }
+            if (planeImage.getX() > 3 * Assets.PLANE_SIZE && (planeImage.getOrientation() == 0 || planeImage.getOrientation() == 2)) {
+                return null;
+            }
             if (planeImage.getX() < 0) {
                 if (y == -1 || y >= (int) THREE_PLANE_SIZE_ADD_TOP_H) {
                     return null;

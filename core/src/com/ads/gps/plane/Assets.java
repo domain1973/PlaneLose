@@ -38,18 +38,17 @@ public class Assets {
     public static TextureRegion startBg;
     public static TextureRegion gameBg;
     public static TextureRegion netBg;
-    public static TextureRegion theme;
     public static TextureRegion winBg;
     public static TextureRegion layerBg;
     public static TextureRegion areaBg;
-    public static TextureRegion resultBg;
     public static TextureRegion star;
     public static TextureRegion star_null;
-    public static TextureRegion readme;
+    public static TextureRegion about;
     public static TextureRegion help;
     public static TextureRegion share;
     public static TextureRegion barShare;
     public static TextureRegion recommend;
+    public static TextureRegion reset;
     public static TextureRegion refresh;
     public static TextureRegion returnTr;
     public static TextureRegion light;
@@ -75,8 +74,9 @@ public class Assets {
     public static TextureRegion flash120_2;
     public static TextureRegion flash120_3;
     public static TextureRegion flash240;
+    public static int LEVEL_GATE_MAX = 12;
     public static int LEVEL_MAX = 4;
-    public static int LEVEL_ADS = LEVEL_MAX + 2;
+    public static int LEVEL_ADS = LEVEL_MAX + 1;
     public static int PLANE_NUM = 6;
     public static float TOPBAR_HEIGHT;//顶部按钮条的高度
     public static float WIDTH;
@@ -115,6 +115,10 @@ public class Assets {
 
     public static boolean isFinishLoading() {
         return assetManager.update();
+    }
+
+    public static String getProgress() {
+        return assetManager.getProgress() + "%";
     }
 
     public static void initData() {
@@ -161,12 +165,9 @@ public class Assets {
         startBg = atlas.findRegion("startbg");
         gameBg = atlas.findRegion("gamebg");
         netBg = atlas.findRegion("netbg");
-        theme = atlas.findRegion("theme");
         layerBg = atlas.findRegion("layerbg");//图层背景,对话框使用
         winBg = atlas.findRegion("winbg");
         areaBg = atlas.findRegion("area");
-        resultBg = atlas.findRegion("resultbg");
-        readme = atlas.findRegion("readme");
         flash120_0 = atlas.findRegion("flash120-0");
         flash120_1 = atlas.findRegion("flash120-1");
         flash120_2 = atlas.findRegion("flash120-2");
@@ -180,7 +181,9 @@ public class Assets {
         light = atlas.findRegion("light");
         next = atlas.findRegion("next");
         returnTr = atlas.findRegion("return");
+        about = atlas.findRegion("about");
         help = atlas.findRegion("help");
+        reset = atlas.findRegion("reset");
         refresh = atlas.findRegion("refresh");
         gate = atlas.findRegion("gate");
         music = atlas.findRegion("muisc");
@@ -222,7 +225,8 @@ public class Assets {
 
     private static void createGateImages(TextureAtlas atlas) {
         gateBmpList = new ArrayList<TextureRegion>();
-        for (int i = 1; i <= 48; i++) {
+        int gateTotal = LEVEL_MAX * LEVEL_GATE_MAX;
+        for (int i = 1; i <= gateTotal; i++) {
             gateBmpList.add(atlas.findRegion(i+""));
         }
     }
@@ -264,10 +268,6 @@ public class Assets {
             }
         }
         return null;
-    }
-
-    public static TextureRegion getGateImage(int gateNum) {
-        return gateBmpList.get(gateNum);
     }
 
     public static Series getGameInfo(String name) {

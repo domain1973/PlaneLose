@@ -1,6 +1,6 @@
-font.name=黑体
-font.size=46
-font.bold=true
+font.name=楷体
+font.size=34
+font.bold=false
 font.italic=false
 
 pad.top=0
@@ -13,7 +13,7 @@ pad.advance.y=0
 glyph.native.rendering=false
 glyph.page.width=512
 glyph.page.height=512
-glyph.text=挑战!真棒恭喜您过关了牛时间已到
+glyph.text=您不是合格的领航员,时间已到要继续努力哦!一流专家级
 
 effect.class=com.badlogic.gdx.tools.hiero.unicodefont.effects.ColorEffect
 effect.Color=ffff33

@@ -1,12 +1,12 @@
 package com.ads.gps.plane.controller;
 
+import com.ads.gps.plane.Answer;
 import com.ads.gps.plane.Assets;
 import com.ads.gps.plane.actors.GateBgImage;
 import com.ads.gps.plane.actors.PlaneImage;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class AreaController extends IController {
     private GateBgImage currGateBgImage;//当前关卡背景
     private Piece[][] pieces = new Piece[4][4];
     private List<GateBgImage> gateBgImages = new ArrayList<GateBgImage>();
-    private List<PlaneImage> planeImages = new ArrayList<PlaneImage>();;
+    private List<PlaneImage> planeImages = new ArrayList<PlaneImage>();
 
     public AreaController(String name) {
         setName(name);
@@ -57,6 +57,7 @@ public class AreaController extends IController {
 
     public void clearPlane() {
         planeImages.clear();
+        removeAllPlaneId();
     }
 
     public List<PlaneImage> getPlaneImages() {
@@ -93,7 +94,7 @@ public class AreaController extends IController {
     public void handle(PlaneImage planeImage) {
         int planeId = planeImage.getId();
         removePlaneId(planeId);
-        int col = 0;
+        int col;
         int row = 0;
         if (planeImage.getX() < 0) {
             col = -1;
@@ -150,6 +151,14 @@ public class AreaController extends IController {
         }
     }
 
+    private void removeAllPlaneId() {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+               pieces[i][j].getPlaneIds().clear();
+            }
+        }
+    }
+
     private void removePlaneId(int planeId) {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
@@ -169,11 +178,13 @@ public class AreaController extends IController {
     }
 
     private void resetPlaneId(int row, int column, int planeId) {
-        List<Integer> planeIds = pieces[row][column].getPlaneIds();
-        if (planeIds.size() == 0) {
-            planeIds.add(planeId);
-        } else {
-            planeIds.add(0, planeId);
+        if ((row > -1 && row < 4) && (column > -1 && column < 4)) {
+            List<Integer> planeIds = pieces[row][column].getPlaneIds();
+            if (planeIds.size() == 0) {
+                planeIds.add(planeId);
+            } else {
+                planeIds.add(0, planeId);
+            }
         }
     }
 

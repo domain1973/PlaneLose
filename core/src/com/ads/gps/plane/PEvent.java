@@ -31,4 +31,6 @@ public abstract class PEvent {
     public abstract void spotAd();
 
     public abstract boolean isAdEnable();
+
+    public abstract void help(int level);
 }

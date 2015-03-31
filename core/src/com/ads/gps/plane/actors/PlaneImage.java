@@ -27,27 +27,27 @@ public class PlaneImage extends Image {
         switch (id) {
             case 0:
                 x = left;
-                y = top;
+                y = 0;
                 break;
             case 1:
                 x = left + planeRawSize;
-                y = top;
+                y = 0;
                 break;
             case 2:
                 x = left + 2 * planeRawSize;
-                y = top;
+                y = 0;
                 break;
             case 3:
                 x = left + 3 * planeRawSize;
-                y = top;
+                y = 0;
                 break;
             case 4:
                 x = left;
-                y = 0;
+                y = top;
                 break;
             case 5:
                 x = left + planeRawSize;
-                y = 0;
+                y = top;
                 break;
         }
         return2Raw();
@@ -74,5 +74,10 @@ public class PlaneImage extends Image {
 
     public int getOrientation() {
         return orientation;
+    }
+
+    public void setOrientation(int orientation) {
+        this.orientation = orientation;
+        setRotation(orientation * 90);
     }
 }

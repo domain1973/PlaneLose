@@ -7,7 +7,7 @@ import java.io.File;
  */
 public class Constant {
     public final static String path = "/mnt/sdcard/ads/";
-    public final static String SHARE_TITLE = "飞机领航员";//TODO 替换
+    public final static String SHARE_TITLE = "智力飞机拼图";//TODO 替换
     public final static String host = "bcs.duapp.com";
     public final static String accessKey = "NESAXkQp7S1SIeqUncUnTCIl";
     public final static String secretKey = "ZIQ2NE02RNWimzjyGI0Yh8NF4cAjouLf";

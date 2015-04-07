@@ -43,7 +43,7 @@ public class MainScreen extends BaseScreen {
             float otherSize = spaceSize * 2;
             float btnPlayY = Assets.HEIGHT / 3;
             final Image playBtn = new Image(new TextureRegionDrawable(Assets.playBtn));
-            //playBtn.addAction(Actions.repeat(2000, Actions.rotateBy(360, 3f)));
+            playBtn.addAction(Actions.repeat(2000, Actions.rotateBy(360, 3f)));
             playBtn.setBounds(btnPlayX, btnPlayY, playSize, playSize);
             playBtn.setOrigin(playBtn.getWidth() / 2, playBtn.getHeight() / 2);
             final ImageButton aboutBtn = new ImageButton(new TextureRegionDrawable(Assets.about), new TextureRegionDrawable(Assets.about));

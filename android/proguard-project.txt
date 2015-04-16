@@ -26,6 +26,6 @@
 -keep class com.baidu.inf.iis.bcs.** { *; }
 -keep class cn.sharesdk.** { *; }
 -keep class flexjson.** { *; }
--keep class com.otomod.ad.** {*;}
+-keep class cn.domob.android.ads.** {*;}
 -libraryjars libs/httpmime-4.1.2.jar
--libraryjars libs/o2omobi_sdk_v4.1.2.jar
+-libraryjars libs/domob_android_sdk.jar

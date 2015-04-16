@@ -142,4 +142,5 @@ dependencies {
     compile files('libs/ShareSDK-Wechat-Favorite-2.3.12.jar')
     compile files('libs/ShareSDK-Wechat-Moments-2.3.12.jar')
     compile files('libs/o2omobi_sdk_v4.1.2.jar')
+    compile files('libs/domob_android_sdk.jar')
 }

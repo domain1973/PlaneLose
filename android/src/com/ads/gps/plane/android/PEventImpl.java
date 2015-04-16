@@ -138,7 +138,6 @@ public class PEventImpl extends PEvent {
             sb.append(starNum).append(",");
         }
         sharedata.putString("starNum", sb.substring(0, sb.length() - 1));
-        sharedata.putBoolean("adManager", Settings.adManager);
         sharedata.commit();
     }
 

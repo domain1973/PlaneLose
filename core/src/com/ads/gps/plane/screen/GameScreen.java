@@ -22,6 +22,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -209,8 +210,10 @@ public class GameScreen extends BaseScreen {
         });
         addActor(suspendBtn);
 
-        final ImageButton helpBtn = new ImageButton(new TextureRegionDrawable(Assets.help));
+        final Image helpBtn = new Image(new TextureRegionDrawable(Assets.help));
+        helpBtn.addAction(Actions.repeat(2000, Actions.rotateBy(360, 3f)));
         helpBtn.setBounds(Assets.WIDTH - Assets.TOPBAR_HEIGHT, Assets.AREA_Y - Assets.TOPBAR_HEIGHT, Assets.TOPBAR_HEIGHT, Assets.TOPBAR_HEIGHT);
+        helpBtn.setOrigin(helpBtn.getWidth() / 2, helpBtn.getHeight() / 2);
         helpBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y,

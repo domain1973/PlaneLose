@@ -7,7 +7,6 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
-
     <uses-permission android:name="android.permission.restart_packages"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -57,19 +56,10 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name="com.otomod.ad.AdActivity" >
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+        <activity
+            android:name="cn.domob.android.ads.DmActivity"
+            android:theme="@android:style/Theme.Translucent" >
         </activity>
-        <provider
-            android:name="com.otomod.ad.provider.ImageProvider"
-            android:authorities="com.ads.gps.plane" />
-        <service android:name="com.otomod.ad.openudid.OpenUDID_service" >
-            <intent-filter>
-                <action android:name="com.o2omobi.ad.openudid.GETUDID" />
-            </intent-filter>
-        </service>
     </application>
 
 </manifest>

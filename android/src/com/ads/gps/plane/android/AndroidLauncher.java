@@ -11,16 +11,13 @@ import com.ads.gps.plane.AppGame;
 import com.ads.gps.plane.Settings;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.five.adwoad.AdDisplay;
+import com.five.adwoad.ErrorCode;
+import com.five.adwoad.FullScreenAdListener;
 
-import cn.domob.android.ads.AdManager;
-import cn.domob.android.ads.InterstitialAd;
-import cn.domob.android.ads.InterstitialAdListener;
-
-public class AndroidLauncher extends AndroidApplication {
-    public static final String PUBLISHER_ID = "56OJxbJIuN06I9QHG4";
-    public static final String InterstitialPPID = "16TLeSFoApHXkNUdeaHyCEjk";
-
-    private InterstitialAd mInterstitialAd;
+public class AndroidLauncher extends AndroidApplication implements FullScreenAdListener {
+    private String LOG_TAG = "Adwo full-screen ad";
+    private AdDisplay ad;
     private PEventImpl pEvent;
 
     @Override
@@ -30,10 +27,11 @@ public class AndroidLauncher extends AndroidApplication {
         pEvent = new PEventImpl(AndroidLauncher.this);
         initialize(new AppGame(pEvent), config);
         loadGameConfig();
-        mInterstitialAd = new InterstitialAd(this, PUBLISHER_ID,
-                InterstitialPPID);
-        mInterstitialAd.setInterstitialAdListener(new DobomAdListenerImpl());
-        mInterstitialAd.loadInterstitialAd();
+        ad = new AdDisplay(this,"61d2c68101c2411c9520b96e2c6fdacd",false,this);
+        // 设置全屏格式
+        ad.setDesireAdForm(AdDisplay.ADWO_FS_INTERCEPT);
+        // 设置请求广告类型 0（默认值）：表示插屏模式，即App Fun与插屏广告都能接收 * 1：表示仅接受App	Fun广告；* 2：表示仅接受插屏广告。
+        ad.setDesireAdType(AdDisplay.ADWO_FS_TYPE_NO_APP_FUN);
     }
 
     @Override
@@ -47,12 +45,8 @@ public class AndroidLauncher extends AndroidApplication {
     }
 
     public void spot() {
-        if (mInterstitialAd.isInterstitialAdReady()){
-            mInterstitialAd.showInterstitialAd(this);
-        } else {
-            Log.i("DomobSDKDemo", "Interstitial Ad is not ready");
-            mInterstitialAd.loadInterstitialAd();
-        }
+        // 请求全屏广告
+        ad.prepareAd();
     }
 
     private void loadGameConfig() {
@@ -70,48 +64,36 @@ public class AndroidLauncher extends AndroidApplication {
         }
     }
 
-    public class DobomAdListenerImpl implements InterstitialAdListener {
+    @Override
+    public void onReceiveAd() {
+        Log.e(LOG_TAG, "onReceiveAd");
+    }
 
-        @Override
-        public void onInterstitialAdReady() {
-            Log.i("DomobSDKDemo", "onAdReady");
-        }
+    @Override
+    public void onLoadAdComplete() {
+        Log.e(LOG_TAG, "onLoadAdComplete");
+        // 成功完成下载后，展示广告
+        ad.displayAd();
+    }
 
-        @Override
-        public void onLandingPageOpen() {
-            Log.i("DomobSDKDemo", "onLandingPageOpen");
-        }
+    @Override
+    public void onFailedToReceiveAd(ErrorCode errorCode) {
+        Log.e(LOG_TAG, "onFailedToReceiveAd");
+    }
 
-        @Override
-        public void onLandingPageClose() {
-            Log.i("DomobSDKDemo", "onLandingPageClose");
-        }
+    @Override
+    public void onAdDismiss() {
+        Log.e(LOG_TAG, "onAdDismiss");
+    }
 
-        @Override
-        public void onInterstitialAdPresent() {
-            Log.i("DomobSDKDemo", "onInterstitialAdPresent");
-        }
-
-        @Override
-        public void onInterstitialAdDismiss() {
-            // Request new ad when the previous interstitial ad was closed.
-            mInterstitialAd.loadInterstitialAd();
-            Log.i("DomobSDKDemo", "onInterstitialAdDismiss");
-        }
-
-        @Override
-        public void onInterstitialAdFailed(AdManager.ErrorCode arg0) {
-            Log.i("DomobSDKDemo", "onInterstitialAdFailed");
-        }
-
-        @Override
-        public void onInterstitialAdLeaveApplication() {
-            Log.i("DomobSDKDemo", "onInterstitialAdLeaveApplication");
-        }
-
-        @Override
-        public void onInterstitialAdClicked(InterstitialAd arg0) {
-            Log.i("DomobSDKDemo", "onInterstitialAdClicked");
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e(LOG_TAG, "onDestroy");
+        // 请在这里释放全屏广告资源
+        if (ad != null) {
+            ad.dismiss();
+            ad = null;
         }
     }
 }

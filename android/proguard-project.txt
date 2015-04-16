@@ -27,5 +27,9 @@
 -keep class cn.sharesdk.** { *; }
 -keep class flexjson.** { *; }
 -keep class cn.domob.android.ads.** {*;}
+-keep class com.five.adwoad.** {*;}
+-keepclasseswithmembernames class * {
+native <methods>;
+}
 -libraryjars libs/httpmime-4.1.2.jar
--libraryjars libs/domob_android_sdk.jar
+-libraryjars libs/Adwo_Android_sdk.jar

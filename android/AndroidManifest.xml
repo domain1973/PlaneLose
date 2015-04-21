@@ -70,6 +70,15 @@
                 <action android:name="com.o2omobi.ad.openudid.GETUDID" />
             </intent-filter>
         </service>
+        <service android:name="net.youmi.android.AdService" >
+        </service>
+
+        <activity
+            android:name="net.youmi.android.AdBrowser"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+
+
     </application>
 
 </manifest>

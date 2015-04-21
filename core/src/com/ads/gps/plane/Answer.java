@@ -11,7 +11,7 @@ public class Answer {
     public final static String[] TITLES = new String[]{"时间已到,要继续努力哦!", "您是合格的领航员!", "您是一流的领航员!", "您是专家级的领航员!"};
     public final static List<int[]> timeLevels = new ArrayList<int[]>();
 
-    private final static int[] time0 = {0, 150, 200, 240};
+    private final static int[] time0 = {0, 150, 180, 180};
     private final static int[] time1 = {0, 200, 250, 300};
     private final static int[] time2 = {0, 250, 300, 360};
     private final static int[] time3 = {0, 300, 360, 420};

@@ -19,6 +19,7 @@
 #   public *;
 #}
 -ignorewarnings
+-dontwarn net.youmi.android.**
 -keep class **.R$* {*;}
 -keep class com.badlogic.** { *; }
 -keep class net.owan.android.** { *; }
@@ -27,5 +28,8 @@
 -keep class cn.sharesdk.** { *; }
 -keep class flexjson.** { *; }
 -keep class com.otomod.ad.** {*;}
+-keep class net.youmi.android.** {
+    *;
+}
 -libraryjars libs/httpmime-4.1.2.jar
 -libraryjars libs/o2omobi_sdk_v4.1.2.jar

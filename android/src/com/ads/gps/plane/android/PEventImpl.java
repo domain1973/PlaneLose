@@ -146,7 +146,7 @@ public class PEventImpl extends PEvent {
         handler.post(new Runnable() {
             public void run() {
                 new AlertDialog.Builder(launcher).setTitle(Constant.SHARE_TITLE).setMessage(
-                        "版本: 1.0.0\n" +
+                        "版本: 1.0.1\n" +
                                 "爱迪工作室 \n" +
                                 "版权所有c 2015\n" +
                                 "客户邮箱\n" +

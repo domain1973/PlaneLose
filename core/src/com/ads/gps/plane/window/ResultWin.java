@@ -130,6 +130,9 @@ public class ResultWin extends BaseWin {
                     layerBg.remove();
                     gameScreen.return2init();
                     ResultWin.this.remove();
+                    if (starNum == 0) {
+                        gameScreen.getAppGame().getPEvent().spotAd();
+                    }
                 }
                 super.touchUp(event, x, y, pointer, button);
             }

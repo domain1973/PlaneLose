@@ -349,9 +349,9 @@ public class GameScreen extends BaseScreen {
             computerStarNum();
             addActor(new ResultWin(this, starNum));
             openResultWin = false;
-            if (starNum == 0) {
-                getAppGame().getPEvent().spotAd();
-            }
+//            if (starNum == 0) {
+//                getAppGame().getPEvent().spotAd();
+//            }
             areaCtrl.clearPlane();
             planeCtrl.handler();
         }

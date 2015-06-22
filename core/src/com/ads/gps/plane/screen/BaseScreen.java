@@ -18,7 +18,6 @@ import com.badlogic.gdx.utils.Array;
  * Created by Administrator on 2014/7/21.
  */
 public class BaseScreen extends ScreenAdapter {
-    protected ImageButton returnBtn;
     private boolean show;
     private boolean backFlag;
     private float y_bar;
@@ -48,15 +47,9 @@ public class BaseScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(stage); // 设置输入接收器
     }
 
-    protected void createBtns() {
-        returnBtn = new ImageButton(new TextureRegionDrawable(Assets.returnTr));
-        returnBtn.setBounds(0, getY_bar(), Assets.TOPBAR_HEIGHT, Assets.TOPBAR_HEIGHT);
-        addActor(returnBtn);
-    }
-
     protected void createBackground() {
         layerBg = new Image(Assets.layerBg);
-        layerBg.setBounds(0, 0, Assets.WIDTH, Assets.HEIGHT - Assets.TOPBAR_HEIGHT);
+        layerBg.setBounds(0, 0, Assets.WIDTH, Assets.HEIGHT);
         addActor(layerBg);
     }
 

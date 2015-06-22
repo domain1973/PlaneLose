@@ -38,47 +38,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="cn.sharesdk.framework.ShareSDKUIShell"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="stateHidden|adjustResize" >
-            <intent-filter>
-                <data android:scheme="tencent100371282" />
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".wxapi.WXEntryActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name="com.otomod.ad.AdActivity" >
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <provider
-            android:name="com.otomod.ad.provider.ImageProvider"
-            android:authorities="com.ads.gps.plane" />
-        <service android:name="com.otomod.ad.openudid.OpenUDID_service" >
-            <intent-filter>
-                <action android:name="com.o2omobi.ad.openudid.GETUDID" />
-            </intent-filter>
-        </service>
-        <service android:name="net.youmi.android.AdService" >
-        </service>
-
-        <activity
-            android:name="net.youmi.android.AdBrowser"
-            android:theme="@android:style/Theme.NoTitleBar" >
-        </activity>
-
-
     </application>
 
 </manifest>

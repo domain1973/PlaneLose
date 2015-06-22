@@ -4,13 +4,6 @@ size: 994,1018
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-about
-  rotate: false
-  xy: 782, 54
-  size: 160, 160
-  orig: 160, 160
-  offset: 0, 0
-  index: -1
 flash120-0
   rotate: false
   xy: 944, 112
@@ -44,6 +37,13 @@ flash240
   xy: 944, 164
   size: 50, 50
   orig: 50, 50
+  offset: 0, 0
+  index: -1
+forbid
+  rotate: false
+  xy: 782, 54
+  size: 160, 160
+  orig: 160, 160
   offset: 0, 0
   index: -1
 layerbg
@@ -101,20 +101,6 @@ repeat: none
   orig: 604, 600
   offset: 0, 0
   index: -1
-barshare
-  rotate: false
-  xy: 756, 194
-  size: 160, 160
-  orig: 160, 160
-  offset: 0, 0
-  index: -1
-continue
-  rotate: false
-  xy: 756, 32
-  size: 160, 160
-  orig: 160, 160
-  offset: 0, 0
-  index: -1
 flash120
   rotate: false
   xy: 918, 254
@@ -129,6 +115,13 @@ gamebg
   orig: 361, 648
   offset: 0, 0
   index: -1
+gate
+  rotate: false
+  xy: 756, 194
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: -1
 gate_0star
   rotate: false
   xy: 918, 152
@@ -141,6 +134,13 @@ gate_1star
   xy: 918, 50
   size: 100, 100
   orig: 100, 100
+  offset: 0, 0
+  index: -1
+levelnext
+  rotate: false
+  xy: 756, 32
+  size: 160, 160
+  orig: 160, 160
   offset: 0, 0
   index: -1
 plane1
@@ -170,20 +170,6 @@ repeat: none
   orig: 600, 603
   offset: 0, 0
   index: -1
-forbid
-  rotate: false
-  xy: 404, 249
-  size: 160, 160
-  orig: 160, 160
-  offset: 0, 0
-  index: -1
-gate
-  rotate: false
-  xy: 404, 87
-  size: 160, 160
-  orig: 160, 160
-  offset: 0, 0
-  index: -1
 gate_2star
   rotate: false
   xy: 890, 2
@@ -198,14 +184,28 @@ help
   orig: 106, 106
   offset: 0, 0
   index: -1
-levelnext
+levelpre
+  rotate: false
+  xy: 404, 249
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: -1
+light
+  rotate: false
+  xy: 404, 87
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: -1
+muisc
   rotate: false
   xy: 566, 50
   size: 160, 160
   orig: 160, 160
   offset: 0, 0
   index: -1
-levelpre
+next
   rotate: false
   xy: 728, 50
   size: 160, 160
@@ -235,7 +235,7 @@ plane4
   index: -1
 
 p4.png
-size: 1018,1007
+size: 990,1007
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -248,37 +248,16 @@ repeat: none
   index: -1
 gate_3star
   rotate: false
-  xy: 918, 393
+  xy: 890, 203
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 gate_lock
   rotate: false
-  xy: 918, 291
+  xy: 566, 41
   size: 100, 100
   orig: 100, 100
-  offset: 0, 0
-  index: -1
-light
-  rotate: false
-  xy: 604, 495
-  size: 160, 160
-  orig: 160, 160
-  offset: 0, 0
-  index: -1
-muisc
-  rotate: false
-  xy: 756, 333
-  size: 160, 160
-  orig: 160, 160
-  offset: 0, 0
-  index: -1
-next
-  rotate: false
-  xy: 766, 495
-  size: 160, 160
-  orig: 160, 160
   offset: 0, 0
   index: -1
 plane5
@@ -288,51 +267,65 @@ plane5
   orig: 400, 400
   offset: 0, 0
   index: -1
-recommend
+refresh
   rotate: false
-  xy: 756, 171
+  xy: 404, 242
   size: 160, 160
   orig: 160, 160
   offset: 0, 0
   index: -1
-refresh
+reset
   rotate: false
-  xy: 756, 9
+  xy: 404, 80
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: -1
+return
+  rotate: false
+  xy: 566, 143
   size: 160, 160
   orig: 160, 160
   offset: 0, 0
   index: -1
 s0
   rotate: false
-  xy: 404, 52
+  xy: 604, 657
   size: 350, 350
   orig: 350, 350
   offset: 0, 0
   index: -1
 s1
   rotate: false
-  xy: 604, 657
+  xy: 604, 305
   size: 350, 350
   orig: 350, 350
   offset: 0, 0
   index: -1
+sound
+  rotate: false
+  xy: 728, 143
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: -1
 star
   rotate: false
-  xy: 918, 189
+  xy: 668, 41
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 star_null
   rotate: false
-  xy: 918, 87
+  xy: 770, 41
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 
 p5.png
-size: 1000,956
+size: 954,956
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -341,20 +334,6 @@ repeat: none
   xy: 2, 354
   size: 600, 602
   orig: 600, 602
-  offset: 0, 0
-  index: -1
-reset
-  rotate: false
-  xy: 354, 192
-  size: 160, 160
-  orig: 160, 160
-  offset: 0, 0
-  index: -1
-return
-  rotate: false
-  xy: 354, 30
-  size: 160, 160
-  orig: 160, 160
   offset: 0, 0
   index: -1
 s2
@@ -369,34 +348,6 @@ s3
   xy: 604, 606
   size: 350, 350
   orig: 350, 350
-  offset: 0, 0
-  index: -1
-s4
-  rotate: false
-  xy: 604, 254
-  size: 350, 350
-  orig: 350, 350
-  offset: 0, 0
-  index: -1
-share
-  rotate: false
-  xy: 516, 92
-  size: 160, 160
-  orig: 160, 160
-  offset: 0, 0
-  index: -1
-sound
-  rotate: false
-  xy: 678, 92
-  size: 160, 160
-  orig: 160, 160
-  offset: 0, 0
-  index: -1
-suspend
-  rotate: false
-  xy: 840, 92
-  size: 160, 160
-  orig: 160, 160
   offset: 0, 0
   index: -1
 
@@ -965,6 +916,110 @@ format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 48
+  rotate: false
+  xy: 2, 2
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+
+p50.png
+size: 602,602
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+help2
+  rotate: false
+  xy: 2, 2
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+
+p51.png
+size: 602,602
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+help5
+  rotate: false
+  xy: 2, 2
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+
+p52.png
+size: 602,602
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+help12
+  rotate: false
+  xy: 2, 2
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+
+p53.png
+size: 602,602
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+help12Down
+  rotate: false
+  xy: 2, 2
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+
+p54.png
+size: 602,602
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+help2Down
+  rotate: false
+  xy: 2, 2
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+
+p55.png
+size: 602,602
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+help5Down
+  rotate: false
+  xy: 2, 2
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+
+p56.png
+size: 602,602
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+helpN
+  rotate: false
+  xy: 2, 2
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+
+p57.png
+size: 602,602
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+helpNDown
   rotate: false
   xy: 2, 2
   size: 600, 600

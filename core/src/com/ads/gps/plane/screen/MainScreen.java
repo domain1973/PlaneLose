@@ -46,35 +46,16 @@ public class MainScreen extends BaseScreen {
             playBtn.addAction(Actions.repeat(2000, Actions.rotateBy(360, 3f)));
             playBtn.setBounds(btnPlayX, btnPlayY, playSize, playSize);
             playBtn.setOrigin(playBtn.getWidth() / 2, playBtn.getHeight() / 2);
-            final ImageButton aboutBtn = new ImageButton(new TextureRegionDrawable(Assets.about), new TextureRegionDrawable(Assets.about));
-            float y = btnPlayY - 1.5f * otherSize;
-            aboutBtn.setBounds(otherX * 2, y, otherSize, otherSize);
-
+            float y = 0;
             final ImageButton music = new ImageButton(new TextureRegionDrawable(Assets.music), new TextureRegionDrawable(Assets.music));
-            music.setBounds(5 * otherX, y, otherSize, otherSize);
+            music.setBounds(0, y, otherSize, otherSize);
             noMusic = new Image(Assets.forbid);
             noMusic.setBounds(music.getX(), music.getY(), otherSize, otherSize);
             final ImageButton sound = new ImageButton(new TextureRegionDrawable(Assets.sound), new TextureRegionDrawable(Assets.sound));
-            sound.setBounds(8 * otherX, y, otherSize, otherSize);
+            sound.setBounds(2 * otherX, y, otherSize, otherSize);
             noSound = new Image(Assets.forbid);
             noSound.setBounds(sound.getX(), sound.getY(), otherSize, otherSize);
-            aboutBtn.addListener(new InputListener() {
-                @Override
-                public boolean touchDown(InputEvent event, float x, float y,
-                                         int pointer, int button) {
-                    return true;
-                }
 
-                @Override
-                public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                    Rectangle bound = new Rectangle(0, 0, music.getWidth(), music.getHeight());
-                    if (bound.contains(x, y)) {
-                        Assets.playSound(Assets.btnSound);
-                        appGame.getPEvent().about();
-                    }
-                    super.touchUp(event, x, y, pointer, button);
-                }
-            });
             music.addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y,
@@ -165,7 +146,6 @@ public class MainScreen extends BaseScreen {
 
             addActor(startBg);
             addActor(playBtn);
-            addActor(aboutBtn);
             addActor(music);
             addActor(sound);
             removeLayerBg();

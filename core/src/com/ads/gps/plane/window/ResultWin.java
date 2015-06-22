@@ -147,11 +147,15 @@ public class ResultWin extends BaseWin {
                 if (bound.contains(x, y)) {
                     Assets.playSound(Assets.btnSound);
                     layerBg.remove();
-                    ((PlaneController) group.findActor(IController.PIECE_CTRL)).handler();
                     int nextGateNum = updateGateNum();
+                    ((PlaneController) group.findActor(IController.PIECE_CTRL)).handler();
                     ResultWin.this.remove();
                     gameScreen.return2init();
-                    if (Answer.isLasterSmallGate(nextGateNum)) {
+                    if (Answer.isAllPass(nextGateNum)) {
+                        //TODO 通关
+                        gameScreen.getAppGame().getPEvent().pass();
+                        gameScreen.getAppGame().convert2MainScreen();
+                    } else if (Answer.isLasterSmallGate(nextGateNum)) {
                         int lv = nextGateNum / Assets.LEVEL_GATE_MAX;
                         AppGame puzzle = gameScreen.getAppGame();
                         LevelScreen levelScreen = puzzle.getLevelScreen();

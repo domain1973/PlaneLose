@@ -20,12 +20,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,19 +41,13 @@ public class Assets {
     public static TextureRegion areaBg;
     public static TextureRegion star;
     public static TextureRegion star_null;
-    public static TextureRegion about;
     public static TextureRegion help;
-    public static TextureRegion share;
-    public static TextureRegion barShare;
-    public static TextureRegion recommend;
     public static TextureRegion reset;
     public static TextureRegion refresh;
     public static TextureRegion returnTr;
     public static TextureRegion light;
     public static TextureRegion gate;
     public static TextureRegion next;
-    public static TextureRegion suspend;
-    public static TextureRegion continueTr;
     public static TextureRegion music;
     public static TextureRegion sound;
     public static TextureRegion forbid;
@@ -74,9 +66,16 @@ public class Assets {
     public static TextureRegion flash120_2;
     public static TextureRegion flash120_3;
     public static TextureRegion flash240;
+    public static TextureRegion help2;
+    public static TextureRegion help2Down;
+    public static TextureRegion help5;
+    public static TextureRegion help5Down;
+    public static TextureRegion help12;
+    public static TextureRegion help12Down;
+    public static TextureRegion helpN;
+    public static TextureRegion helpNDown;
     public static int LEVEL_GATE_MAX = 12;
     public static int LEVEL_MAX = 4;
-    public static int LEVEL_ADS = LEVEL_MAX + 1;
     public static int PLANE_NUM = 6;
     public static float TOPBAR_HEIGHT;//顶部按钮条的高度
     public static float WIDTH;
@@ -99,7 +98,6 @@ public class Assets {
     public static BitmapFont readmeFont;
     public static BitmapFont quizFont;
     public static List<TextureRegion> gateBmpList;
-    public static List<Series> seriesList;
 
     public static void load() {
         assetManager = new AssetManager();
@@ -117,10 +115,6 @@ public class Assets {
         return assetManager.update();
     }
 
-    public static String getProgress() {
-        return assetManager.getProgress() + "%";
-    }
-
     public static void initData() {
         gameFont = assetManager.get("puzzle.fnt", BitmapFont.class);
         otherFont = assetManager.get("game.fnt", BitmapFont.class);
@@ -136,7 +130,6 @@ public class Assets {
         creteMagicCubes(atlas);
         createGateImages(atlas);
         loadMusic();
-        loadAd();
     }
 
     private static void initConstants() {
@@ -174,21 +167,15 @@ public class Assets {
         flash120_3 = atlas.findRegion("flash120-3");
         flash240 = atlas.findRegion("flash240");
 
-        suspend = atlas.findRegion("suspend");
-        share = atlas.findRegion("share");
-        barShare = atlas.findRegion("barshare");
-        recommend = atlas.findRegion("recommend");
         light = atlas.findRegion("light");
         next = atlas.findRegion("next");
         returnTr = atlas.findRegion("return");
-        about = atlas.findRegion("about");
         help = atlas.findRegion("help");
-        reset = atlas.findRegion("reset");
         refresh = atlas.findRegion("refresh");
         gate = atlas.findRegion("gate");
         music = atlas.findRegion("muisc");
         sound = atlas.findRegion("sound");
-        continueTr = atlas.findRegion("continue");
+        reset = atlas.findRegion("reset");
         star = atlas.findRegion("star");
         star_null = atlas.findRegion("star_null");
         forbid = atlas.findRegion("forbid");
@@ -202,6 +189,15 @@ public class Assets {
         gate_2star = atlas.findRegion("gate_2star");
         gate_3star = atlas.findRegion("gate_3star");
         gate_lock = atlas.findRegion("gate_lock");
+
+        help2 = atlas.findRegion("help2");
+        help2Down = atlas.findRegion("help2Down");
+        help5 = atlas.findRegion("help5");
+        help5Down = atlas.findRegion("help5Down");
+        help12 = atlas.findRegion("help12");
+        help12Down = atlas.findRegion("help12Down");
+        helpN = atlas.findRegion("helpN");
+        helpNDown = atlas.findRegion("helpNDown");
     }
 
     private static void creteMagicCubes(TextureAtlas atlas) {
@@ -229,54 +225,6 @@ public class Assets {
         for (int i = 1; i <= gateTotal; i++) {
             gateBmpList.add(atlas.findRegion(i+""));
         }
-    }
-
-    private static void loadAd() {
-        try {
-            seriesList = new ArrayList<Series>();
-            //动态获取系列、说明、图标
-            FileHandle packFile = Gdx.files.external("ads/ad.atlas");
-            TextureAtlas atlas = new TextureAtlas(packFile);
-            List<Sprite> spriteNames = new ArrayList<Sprite>();
-            for (int i = 0; i < Integer.MAX_VALUE; i++) {
-                Sprite s = atlas.createSprite("series" + i);
-                if (s == null) {
-                    break;
-                }
-                spriteNames.add(s);
-            }
-            FileHandle filehandle = Gdx.files.external("ads/url.txt");
-            String[] urls = filehandle.readString("UTF-8").split("[#]");
-            for (int i = 0; i < spriteNames.size(); i++) {
-                String[] url = getUrl(urls, "series" + i).split("[|]");
-                Series series = new Series().setImage(new Image(spriteNames.get(i)))
-                        .setName(url[0])
-                        .setDetail(url[1])
-                        .setUrl(url[2]);
-                seriesList.add(series);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static String getUrl(String[] urls, String name) {
-        for (String url : urls) {
-            String trim = url.trim();
-            if (trim.split("[=]")[0].contains(name)) {
-                return trim.split("=")[1];
-            }
-        }
-        return null;
-    }
-
-    public static Series getGameInfo(String name) {
-        for (Series series : seriesList) {
-            if (series.getName().equals(name)) {
-                return series;
-            }
-        }
-        return null;
     }
 
     public static void playSound(Sound sound) {

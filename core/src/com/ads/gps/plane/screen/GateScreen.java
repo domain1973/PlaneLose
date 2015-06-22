@@ -36,23 +36,6 @@ public class GateScreen extends OtherScreen {
         if (!isShow()) {
             super.show();
             buildGateImage(level);
-            returnBtn.addListener(new InputListener() {
-                @Override
-                public boolean touchDown(InputEvent event, float x, float y,
-                                         int pointer, int button) {
-                    return true;
-                }
-
-                @Override
-                public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                    Rectangle bound = new Rectangle(0, 0, returnBtn.getWidth(), returnBtn.getHeight());
-                    if (bound.contains(x, y)) {
-                        Assets.playSound(Assets.btnSound);
-                        getAppGame().setScreen(levelScreen);
-                    }
-                    super.touchUp(event, x, y, pointer, button);
-                }
-            });
             setShow(true);
         } else {
             Gdx.input.setInputProcessor(getStage());
@@ -105,7 +88,11 @@ public class GateScreen extends OtherScreen {
                             break;
                     }
                 } else {
-                    gateTRegion = Assets.gate_lock;
+                    if (Settings.unlockEnabled) {
+                        gateTRegion = Assets.gate_0star;
+                    } else {
+                        gateTRegion = Assets.gate_lock;
+                    }
                 }
                 TextureRegionDrawable imageUp = new TextureRegionDrawable(gateTRegion);
                 imageUp.setMinWidth(gateBtnSize);
@@ -123,7 +110,7 @@ public class GateScreen extends OtherScreen {
                         Rectangle bound = new Rectangle(0, 0, gateImageBtn.getWidth(), gateImageBtn.getHeight());
                         if (bound.contains(x, y)) {
                             Assets.playSound(Assets.btnSound);
-                            if (gateNum <= Settings.unlockGateNum) {
+                            if (gateNum <= Settings.unlockGateNum || Settings.unlockEnabled) {
                                 gameScreen.handleNewGate(gateNum);
                                 getAppGame().setScreen(gameScreen);
                             }

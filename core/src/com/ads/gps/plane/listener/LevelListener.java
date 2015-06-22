@@ -1,9 +1,7 @@
 package com.ads.gps.plane.listener;
 
-import com.ads.gps.plane.Answer;
 import com.ads.gps.plane.AppGame;
 import com.ads.gps.plane.Assets;
-import com.ads.gps.plane.Series;
 import com.ads.gps.plane.Settings;
 import com.ads.gps.plane.screen.GateScreen;
 import com.ads.gps.plane.screen.LevelScreen;
@@ -56,9 +54,7 @@ public class LevelListener extends GestureDetector.GestureAdapter {
         int tLevel = Settings.unlockGateNum / Assets.LEVEL_GATE_MAX;
         float v = Assets.WIDTH - 2 * Assets.LEVEL_IMAGE_OFF_SIZE;
         Rectangle bounds = new Rectangle(Assets.LEVEL_IMAGE_OFF_SIZE, (Assets.HEIGHT - Assets.WIDTH) / 2 + Assets.LEVEL_IMAGE_OFF_SIZE, v, v);
-        if (level == Assets.LEVEL_ADS - 1) {
-            showOtherGame(bounds, "帮动物回家");
-        } else if (level <= tLevel) {
+        if (level <= tLevel || Settings.unlockEnabled) {
             if (bounds.contains(touchPoint.x, touchPoint.y)) {
                 Assets.playSound(Assets.btnSound);
                 gateScreen.buildGateImage(level);
@@ -66,18 +62,6 @@ public class LevelListener extends GestureDetector.GestureAdapter {
             }
         }
         return false;
-    }
-
-    private void showOtherGame(Rectangle bounds, String text) {
-        if (bounds.contains(touchPoint.x, touchPoint.y)) {
-            Assets.playSound(Assets.btnSound);
-            Series series = Assets.getGameInfo(text);
-            if (series == null) {
-                gateScreen.getAppGame().getPEvent().netSlowInfo();
-            } else {
-                gateScreen.getAppGame().getPEvent().install(series);
-            }
-        }
     }
 
     @Override

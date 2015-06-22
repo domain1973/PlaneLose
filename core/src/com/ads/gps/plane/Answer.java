@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class Answer {
     public final static List<String[]> CHALLENGES = new ArrayList<String[]>();
-    public final static String[] TITLES = new String[]{"时间已到,要继续努力哦!", "您是合格的领航员!", "您是一流的领航员!", "您是专家级的领航员!"};
+    public final static String[] TITLES = new String[]{"TIME OUT!", "SOLVED!", "SOLVED!", "SOLVED!"};
     public final static List<int[]> timeLevels = new ArrayList<int[]>();
 
     private final static int[] time0 = {0, 150, 180, 180};

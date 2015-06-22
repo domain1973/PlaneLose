@@ -46,7 +46,7 @@ public class LoadingScreen extends ScreenAdapter {
         stage = new Stage();
         Image image = new Image(new Texture(Gdx.files.internal("loading/default.png")));
         float w = Gdx.graphics.getWidth()/2;
-        float h = w * 230 / 455;
+        float h = Gdx.graphics.getWidth() / 4;
         image.setWidth(w);
         image.setHeight(h);
         image.setPosition((Gdx.graphics.getWidth() - w) / 2, Gdx.graphics.getHeight() / 2);

@@ -71,7 +71,9 @@ public class LevelScreen extends OtherScreen {
 
     private void lock() {
         int tLevel = Settings.unlockGateNum / Assets.LEVEL_GATE_MAX;
-        if (level > tLevel && level < Assets.LEVEL_MAX) {
+        if (Settings.unlockEnabled) {
+            isAddLock = false;
+        } else if (level > tLevel && level < Assets.LEVEL_MAX) {
             isAddLock = true;
         } else {
             isAddLock = false;
@@ -97,29 +99,12 @@ public class LevelScreen extends OtherScreen {
             public boolean touchDown(InputEvent event, float x, float y,
                                      int pointer, int button) {
                 Assets.playSound(Assets.btnSound);
-                if (level != Assets.LEVEL_ADS) {
+                if (level != Assets.LEVEL_MAX) {
                     level++;
                     levelListener.setPosition(-Assets.WIDTH * level);
                     lock();
                 }
                 return true;
-            }
-        });
-        returnBtn.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y,
-                                     int pointer, int button) {
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                Rectangle bound = new Rectangle(0, 0, returnBtn.getWidth(), returnBtn.getHeight());
-                if (bound.contains(x, y)) {
-                    Assets.playSound(Assets.btnSound);
-                    getAppGame().setScreen(getAppGame().getMainScreen());
-                }
-                super.touchUp(event, x, y, pointer, button);
             }
         });
     }
@@ -184,7 +169,7 @@ public class LevelScreen extends OtherScreen {
                     if (rightBtn.getStage() == null) {
                         addActor(rightBtn);
                     }
-                } else if (level == Assets.LEVEL_ADS - 1) {
+                } else if (level == Assets.LEVEL_MAX - 1) {
                     rightBtn.remove();
                     if (leftBtn.getStage() == null) {
                         addActor(leftBtn);

@@ -1,5 +1,5 @@
-font.name=黑体
-font.size=22
+font.name=Arial
+font.size=20
 font.bold=false
 font.italic=false
 
@@ -13,7 +13,7 @@ pad.advance.y=0
 glyph.native.rendering=false
 glyph.page.width=512
 glyph.page.height=512
-glyph.text=把下面的6个拼图片移到上面的图中,移动后点击拼图可变方向. 注意拼图是不能重叠的.
+glyph.text=Move all 6 puzzle pieces on top of the challenge graph.\nClick these pieces to change direction.\nNote that the piece is not overlapping.
 
 effect.class=com.badlogic.gdx.tools.hiero.unicodefont.effects.ColorEffect
 effect.Color=ffffff

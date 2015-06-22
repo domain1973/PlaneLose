@@ -33,4 +33,8 @@ public class AppGame extends Game {
     public PEvent getPEvent() {
         return pEvent;
     }
+
+    public void convert2MainScreen() {
+        setScreen(loadingScreen.getMainScreen());
+    }
 }

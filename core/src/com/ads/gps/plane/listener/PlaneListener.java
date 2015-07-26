@@ -20,9 +20,9 @@ import com.badlogic.gdx.utils.SnapshotArray;
  */
 public class PlaneListener extends GestureDetector.GestureAdapter {
     private static final float Y1 = Assets.HEIGHT - Assets.PLANE_SIZE - Assets.TOPBAR_HEIGHT;
-    private static final float Y2 = Assets.HEIGHT - 3 * Assets.PLANE_SIZE - Assets.PLANE_BIG_SIZE - Assets.TOPBAR_HEIGHT;
     private static final float THREE_PLANE_SIZE = Assets.PLANE_SIZE * 3;
-    private static final float THREE_PLANE_SIZE_ADD_TOP_H = Assets.TOPBAR_HEIGHT + Assets.PLANE_SIZE * 3;
+    private static final float Y2 = Assets.HEIGHT - THREE_PLANE_SIZE - Assets.PLANE_BIG_SIZE - Assets.TOPBAR_HEIGHT;
+    private static final float THREE_PLANE_SIZE_ADD_TOP_H = Assets.TOPBAR_HEIGHT + THREE_PLANE_SIZE;
     private Stage stage;
     private GameScreen gameScreen;
     private Vector3 touchPoint;
@@ -152,9 +152,6 @@ public class PlaneListener extends GestureDetector.GestureAdapter {
         if (planeImage.getId() == 4 || planeImage.getId() == 5) {
             int y = getY(planeImage.getY(), planeImage.getWidth());
             float y1 = Assets.HEIGHT - y - Assets.PLANE_BIG_SIZE;
-            if ((y == Assets.PLANE_SIZE * 3 + Assets.TOPBAR_HEIGHT || y == Assets.PLANE_SIZE  + Assets.TOPBAR_HEIGHT) && (planeImage.getOrientation() == 3)) {
-                return null;
-            }
             if (planeImage.getX() < 0 && (planeImage.getOrientation() == 0 || planeImage.getOrientation() == 2)) {
                 return null;
             }
@@ -227,7 +224,7 @@ public class PlaneListener extends GestureDetector.GestureAdapter {
         if (t < 0) {
             return -1;
         }
-        int y1 = (int) (t / size);
+        int y1 =  (int)(t / size);
         return (int) (y1 * size + Assets.TOPBAR_HEIGHT);
     }
 }

@@ -97,12 +97,7 @@ public class ResultWin extends BaseWin {
                 Rectangle bound = new Rectangle(0, 0, gateBtn.getWidth(), gateBtn.getHeight());
                 if (bound.contains(x, y)) {
                     Assets.playSound(Assets.btnSound);
-                    if (starNum > 0) {//时间已到,回关卡时,不能更新状态
-                        int nextGateNum = updateGateNum();
-                        gameScreen.getGateScreen().buildGateImage((nextGateNum - 1) / Assets.LEVEL_GATE_MAX);
-                    } else {
-                        gameScreen.getGateScreen().buildGateImage((Settings.unlockGateNum - 1) / Assets.LEVEL_GATE_MAX);
-                    }
+                    gameScreen.getGateScreen().buildGateImage(gameScreen.getGateNum() / Assets.LEVEL_GATE_MAX);
                     layerBg.remove();
                     ResultWin.this.remove();
                     gameScreen.return2init();

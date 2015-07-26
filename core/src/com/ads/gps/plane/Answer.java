@@ -11,10 +11,10 @@ public class Answer {
     public final static String[] TITLES = new String[]{"TIME OUT!", "SOLVED!", "SOLVED!", "SOLVED!"};
     public final static List<int[]> timeLevels = new ArrayList<int[]>();
 
-    private final static int[] time0 = {0, 150, 180, 180};
-    private final static int[] time1 = {0, 200, 250, 300};
-    private final static int[] time2 = {0, 250, 300, 360};
-    private final static int[] time3 = {0, 300, 360, 420};
+    private final static int[] time0 = {0, 120, 150, 180};
+    private final static int[] time1 = {0, 180, 210, 240};
+    private final static int[] time2 = {0, 240, 270, 300};
+    private final static int[] time3 = {0, 300, 330, 360};
 
     static {
         timeLevels.add(time0);

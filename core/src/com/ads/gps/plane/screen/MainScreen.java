@@ -6,12 +6,16 @@ import com.ads.gps.plane.Settings;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.repeat;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.scaleTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 
 /**
@@ -43,7 +47,8 @@ public class MainScreen extends BaseScreen {
             float otherSize = spaceSize * 2;
             float btnPlayY = Assets.HEIGHT / 3;
             final Image playBtn = new Image(new TextureRegionDrawable(Assets.playBtn));
-            playBtn.addAction(Actions.repeat(2000, Actions.rotateBy(360, 3f)));
+            Action complexAction = repeat(2000, sequence(scaleTo(0.8f, 0.8f, 1.5f), scaleTo(1, 1, 1.5f)));
+            playBtn.addAction(complexAction);
             playBtn.setBounds(btnPlayX, btnPlayY, playSize, playSize);
             playBtn.setOrigin(playBtn.getWidth() / 2, playBtn.getHeight() / 2);
             float y = 0;

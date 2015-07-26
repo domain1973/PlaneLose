@@ -1,6 +1,5 @@
 package com.ads.gps.plane;
 
-import com.ads.gps.plane.screen.GameScreen;
 import com.ads.gps.plane.screen.MainScreen;
 
 /**
@@ -15,4 +14,8 @@ public abstract class PEvent {
     public abstract void help(int level);
 
     public abstract void pass();
+
+    public abstract void buy(int num);
+
+
 }

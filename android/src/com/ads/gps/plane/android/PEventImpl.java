@@ -2,21 +2,13 @@ package com.ads.gps.plane.android;
 
 import android.app.ActivityManager;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Handler;
 
-import com.ads.gps.plane.Answer;
 import com.ads.gps.plane.PEvent;
-import com.ads.gps.plane.Settings;
 import com.ads.gps.plane.screen.GameScreen;
 import com.ads.gps.plane.screen.MainScreen;
-
-import static com.ads.gps.plane.android.R.string.readme3;
 
 /**
  * Created by Administrator on 2014/10/2.
@@ -28,20 +20,6 @@ public class PEventImpl extends PEvent {
     public PEventImpl(AndroidLauncher androidLauncher) {
         launcher = androidLauncher;
         handler = new Handler();
-    }
-
-    private void openNetworkFailDlg() {
-        handler.post(new Runnable() {
-            public void run() {
-                new AlertDialog.Builder(launcher).setTitle(Constant.title).setMessage("连接不到网络,请检查哦!").
-                        setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                return;
-                            }
-                        }).setIcon(R.drawable.xiaozi).create().show();
-            }
-        });
     }
 
     @Override
@@ -62,41 +40,7 @@ public class PEventImpl extends PEvent {
 
     @Override
     public void save() {
-        SharedPreferences.Editor sharedata = launcher.getSharedPreferences("data", 0).edit();
-        sharedata.putBoolean("music", Settings.musicEnabled);
-        sharedata.putBoolean("sound", Settings.soundEnabled);
-        sharedata.putInt("passNum", Settings.unlockGateNum);
-        sharedata.putInt("helpNum", Settings.helpNum);
-        StringBuffer sb = new StringBuffer();
-        for (Integer starNum : Answer.gateStars) {
-            sb.append(starNum).append(",");
-        }
-        sharedata.putString("starNum", sb.substring(0, sb.length() - 1));
-        sharedata.putBoolean("unlock", Settings.unlockEnabled);
-        sharedata.commit();
-    }
-
-    public boolean isNetworkEnable() {
-        if (!isConnect2Net(launcher.getContext())) {
-            openNetworkFailDlg();
-            return false;
-        }
-        return true;
-    }
-
-    private boolean isConnect2Net(Context context) {
-        try {
-            ConnectivityManager con = (ConnectivityManager) context
-                    .getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo networkinfo = con.getActiveNetworkInfo();
-            if (networkinfo == null || !networkinfo.isAvailable()) {
-                // 当前网络不可用
-                return false;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return true;
+        launcher.saveData();
     }
 
     @Override
@@ -139,5 +83,10 @@ public class PEventImpl extends PEvent {
                         }).setIcon(R.drawable.xiaozi).create().show();
             }
         });
+    }
+
+    @Override
+    public void buy(int num) {
+        launcher.buy(num);
     }
 }

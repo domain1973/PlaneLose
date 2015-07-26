@@ -1,6 +1,5 @@
 package com.ads.gps.plane.controller;
 
-import com.ads.gps.plane.Answer;
 import com.ads.gps.plane.Assets;
 import com.ads.gps.plane.actors.GateBgImage;
 import com.ads.gps.plane.actors.PlaneImage;

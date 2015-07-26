@@ -101,13 +101,6 @@ repeat: none
   orig: 604, 600
   offset: 0, 0
   index: -1
-flash120
-  rotate: false
-  xy: 918, 254
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
 gamebg
   rotate: false
   xy: 608, 356
@@ -124,12 +117,19 @@ gate
   index: -1
 gate_0star
   rotate: false
-  xy: 918, 152
+  xy: 918, 254
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 gate_1star
+  rotate: false
+  xy: 918, 152
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+gate_2star
   rotate: false
   xy: 918, 50
   size: 100, 100
@@ -170,7 +170,7 @@ repeat: none
   orig: 600, 603
   offset: 0, 0
   index: -1
-gate_2star
+gate_3star
   rotate: false
   xy: 890, 2
   size: 100, 100
@@ -246,16 +246,9 @@ repeat: none
   orig: 600, 603
   offset: 0, 0
   index: -1
-gate_3star
-  rotate: false
-  xy: 890, 203
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
 gate_lock
   rotate: false
-  xy: 566, 41
+  xy: 890, 203
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
@@ -311,14 +304,14 @@ sound
   index: -1
 star
   rotate: false
-  xy: 668, 41
+  xy: 566, 41
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 star_null
   rotate: false
-  xy: 770, 41
+  xy: 668, 41
   size: 100, 100
   orig: 100, 100
   offset: 0, 0

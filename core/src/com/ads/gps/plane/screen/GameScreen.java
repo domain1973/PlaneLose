@@ -10,6 +10,7 @@ import com.ads.gps.plane.controller.PlaneController;
 import com.ads.gps.plane.listener.PlaneDetector;
 import com.ads.gps.plane.listener.PlaneListener;
 import com.ads.gps.plane.window.ResultWin;
+import com.ads.gps.plane.window.StoreWin;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
@@ -130,13 +131,15 @@ public class GameScreen extends BaseScreen {
                 Rectangle bound = new Rectangle(0, 0, sosBtn.getWidth(), sosBtn.getHeight());
                 if (bound.contains(x, y)) {
                     Assets.playSound(Assets.btnSound);
+                    suspendTimer();
                     if (Settings.helpNum == -1) {
                         GameScreen.this.useSos();
                     } else if (Settings.helpNum > 0) {
                         Settings.helpNum = Settings.helpNum - 1;
                         GameScreen.this.useSos();
                     } else {
-                        getAppGame().setScreen(new StoreScreen(GameScreen.this));
+                        addActor(new StoreWin(GameScreen.this));
+                        //getAppGame().setScreen(new StoreScreen(GameScreen.this));
                     }
                 }
                 super.touchUp(event, x, y, pointer, button);
@@ -217,7 +220,10 @@ public class GameScreen extends BaseScreen {
     @Override
     public void render(float delta) {
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
-            if (!isBackFlag() && isClosedResultWin()) {
+            if (!isClosedStoreWin()) {
+                setBackFlag(true);
+                closeStoreWin();
+            } else if (!isBackFlag() && isClosedResultWin()) {
                 gateScreen.setBackFlag(true);
                 gateScreen.buildGateImage(level);
                 getAppGame().setScreen(gateScreen);
@@ -262,13 +268,17 @@ public class GameScreen extends BaseScreen {
                 getBatch().end();
             } else {
                 isUsedHelp = false;
-                resumeTimer();
                 planeId = 0;
                 executStarCount.shutdown();
-                multiplexer.addProcessor(planeDetector); // 添加手势识别
-                multiplexer.addProcessor(getStage());
+                resume();
             }
         }
+    }
+
+    public void resume() {
+        resumeTimer();
+        multiplexer.addProcessor(planeDetector); // 添加手势识别
+        multiplexer.addProcessor(getStage());
     }
 
     private void changeStar() {
@@ -305,6 +315,27 @@ public class GameScreen extends BaseScreen {
             }
         }
         return true;
+    }
+
+    private boolean isClosedStoreWin() {
+        Array<Actor> actors = getStage().getActors();
+        for (Actor actor : actors) {
+            if (actor instanceof StoreWin) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void closeStoreWin() {
+        Array<Actor> actors = getStage().getActors();
+        for (Actor actor : actors) {
+            if (actor instanceof StoreWin) {
+                ((StoreWin)actor).getLayerBg().remove();
+                actor.remove();
+            }
+        }
+        resume();
     }
 
     private void computerStarNum() {

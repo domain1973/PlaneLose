@@ -16,16 +16,16 @@ android {
         defaultConfig {
             minSdkVersion 8
             targetSdkVersion 19
-            versionCode 101
-            versionName "1.0.1"
+            versionCode 100
+            versionName "1.0.0"
         }
 
         signingConfigs {
             release {
-                storeFile file("PlaneGPS.jks")
-                storePassword "PLANEGPS"
-                keyAlias "PlaneGPS"
-                keyPassword "PLANEGPS"
+                storeFile file("PlaneFULLGPS.jks")
+                storePassword "PLANEFULLGPS"
+                keyAlias "PlaneFULLGPS"
+                keyPassword "PLANEFULLGPS"
             }
         }
         buildTypes {

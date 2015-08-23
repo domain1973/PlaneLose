@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Airport traffic control</string>
+    <string name="app_name">Airport traffic control[FULL]</string>
     <string name="readme1">Level 1: In the skies\n*The position AND the direction of the aeroplanes is given.\n*Move the puzzle pieces - with the planes on top - onto the white aeroplane images on the challenge graph.To help you get started,one of the aeroplanes is coloured in the first 6 challenges so that you know where to begin.</string>
     <string name="readme2">Level 2: Radar\n*The poition AND the flight path of the aeroplanes is given,but NOT their direction.\n*Move the planes onto the 6 areas indicate by a circle,so that they follow the flight path(the dotted line going from the nose to the tail of the plane).Watch out!Planes on the same flight path MUST also fly in the same direction!</string>
     <string name="readme3">Level 3: Airways\n*The fight path AND the direction of the planes is given,but NOT their exact location.\n*Move the aeroplanes onto the flight paths allowing them to follow it in the right direction.The aeroplanes should completely cover the flight paths(from nose to tail).Therefore you can only use straight parts of the flight paths.You cannot use parts that are curved!</string>
